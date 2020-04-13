@@ -10,31 +10,53 @@ class Blog extends Component {
 
     state = {
         posts: [],
+        selectedPostId: null,
+        error: false,
     }
 
     componentDidMount() {
-        axios.get('https://jsonplaceholder.typicode.com/posts')
+        axios.get('/posts')
             .then(response => {
-                this.setState({
-                    posts: response.data,
+                const posts = response.data.slice(0, 4);
+                const updatedPosts = posts.map(post => {
+                    return {
+                        ...post,
+                        author: 'Rui',
+                    };
                 });
-                console.log(response);
-            });
+                this.setState({
+                    posts: updatedPosts,
+                });
+                // console.log(response);
+            })
+            .catch(error => this.setState({ error: true }));
+    }
+
+    postSelectedHandler = (id) => {
+        this.setState({
+            selectedPostId: id,
+        });
     }
 
     render() {
         const posts = this.state.posts.map(
             post => {
-                return <Post title={post.title} />;
+                return <Post
+                    key={post.id}
+                    title={post.title}
+                    author={post.author}
+                    clicked={() => this.postSelectedHandler(post.id)}
+                />;
             }
         );
+        const error = <p>something went wrong...</p>;
         return (
             <div>
                 <section className="Posts">
-                    {posts}
+                    {this.state.error ? error : posts}
                 </section>
                 <section>
-                    <FullPost />
+                    <FullPost id={this.state.selectedPostId} />
                 </section>
                 <section>
                     <NewPost />
