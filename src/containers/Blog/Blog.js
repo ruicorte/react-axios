@@ -8,9 +8,9 @@ import NewPost from './NewPost/NewPost';
 import './Blog.scss';
 
 import Posts from './Posts/Posts';
-
-import { Route, NavLink } from 'react-router-dom';
 import FullPost from './FullPost/FullPost';
+
+import { Route, NavLink, Switch } from 'react-router-dom';
 
 class Blog extends Component {
 
@@ -39,9 +39,10 @@ class Blog extends Component {
                 {/* <Route path="/" exact render={() => <h1>home</h1>} /> */}
                 {/* <Route path="/" exact render={() => <Posts />} /> */}
                 <Route path="/" exact component={Posts} />
-                <Route path="/new-post" component={NewPost} />
-                <Route path="/:id" component={FullPost} />
-
+                <Switch>
+                    <Route path="/new-post" component={NewPost} />
+                    <Route path="/:id" component={FullPost} />
+                </Switch>
             </div>
         );
     }

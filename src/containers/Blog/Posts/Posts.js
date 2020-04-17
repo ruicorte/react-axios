@@ -3,7 +3,7 @@ import axios from 'axios';
 import Post from '../../../components/Post/Post';
 import './Posts.scss';
 
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 class Posts extends Component {
 
@@ -14,7 +14,7 @@ class Posts extends Component {
     }
 
     componentDidMount() {
-        // console.log(this.props);
+        console.log(this.props);
         axios.get('/posts')
             .then(response => {
                 const posts = response.data.slice(0, 4);
@@ -35,24 +35,27 @@ class Posts extends Component {
             });
     }
 
-    /*     postSelectedHandler = (id) => {
-            this.setState({
-                selectedPostId: id,
-            });
-        } */
+    postSelectedHandler = (id) => {
+
+        /*         this.setState({
+                    selectedPostId: id,
+                });
+         */
+    }
 
     render() {
         const posts = this.state.posts.map(
             post => {
                 return (
-                    <Link to={'/' + post.id} key={post.id}>
-                        <Post
-                            title={post.title}
-                            author={post.author}
-                        // clicked={() => this.postSelectedHandler(post.id)}
-                        />
-                    </Link>
-                    );
+                    // <Link to={'/' + post.id} >
+                    <Post
+                        key={post.id}
+                        title={post.title}
+                        author={post.author}
+                        clicked={() => this.postSelectedHandler(post.id)}
+                    />
+                    // </Link>
+                );
             }
         );
         return (
