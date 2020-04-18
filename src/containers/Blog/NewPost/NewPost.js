@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 import './NewPost.css';
 
@@ -10,7 +10,7 @@ class NewPost extends Component {
         title: '',
         content: '',
         author: 'Max',
-        submitted: false,
+        // submitted: false,
     }
 
     componentDidMount() {
@@ -37,19 +37,20 @@ class NewPost extends Component {
                 //     submitted: true,
                 // });
             });
-        this.setState({
-            submitted: true,
-        });
+        // this.setState({
+        //     submitted: true,
+        // });
+        this.props.history.replace('/');
     }
 
     render() {
-        let redirect = null;
-        if (this.state.submitted) {
-            redirect = <Redirect to='/' />;
-        }
+        // let redirect = null;
+        // if (this.state.submitted) {
+        //     redirect = <Redirect to='/' />;
+        // }
         return (
             <div className="NewPost">
-                {redirect}
+                {/* {redirect} */}
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title} onChange={(event) => this.setState({ title: event.target.value })} />

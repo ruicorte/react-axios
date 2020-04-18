@@ -13,6 +13,9 @@ import Posts from './Posts/Posts';
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 class Blog extends Component {
+    state = {
+        auth: false,
+    };
 
     render() {
         // const error = <p>something went wrong...</p>;
@@ -39,10 +42,12 @@ class Blog extends Component {
                 {/* <Route path="/" exact render={() => <h1>home</h1>} /> */}
                 {/* <Route path="/" exact render={() => <Posts />} /> */}
                 <Switch>
-                    <Route path="/new-post" component={NewPost} />
+                    {/* <Route path="/new-post" component={NewPost} /> */}
+                    {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
                     <Route path="/posts" component={Posts} />
+                    <Route render={() => <h1>not found</h1>} />
+                    {/* <Redirect from='/' to='/posts' /> */}
                     {/* <Route path="/" component={Posts} /> */}
-                    <Redirect from='/' to='/posts' />
                 </Switch>
             </div>
         );
